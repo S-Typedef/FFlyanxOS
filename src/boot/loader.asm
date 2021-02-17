@@ -21,7 +21,7 @@ start:
     LoaderFileName  db      "LOADER BIN", 0   ;LOADER.BIN之文件名
     ;简化代码，每个字符串长度均为 MessageLength
     MessageLength       equ 13
-    Message:        db      "Hello LOader!"      ;13字节，不够用空格补齐，序号0
+    Message:        db      "Hello Loader!"      ;13字节，不够用空格补齐，序号0
     ;=======================================================================
     ;-----------------------------------------------------------------------
     ;函数名：DispStr
