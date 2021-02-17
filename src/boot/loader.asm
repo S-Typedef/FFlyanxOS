@@ -18,7 +18,7 @@ start:
 
     ;-----------------------------------------------------------------------
     ;要显示字符串
-    LoaderFileName db "LODAER BIN", 0   ;LOADER.BIN之文件名
+    LoaderFileName db "LOADER BIN", 0   ;LOADER.BIN之文件名
     ;简化代码，每个字符串长度均为 MessageLength
     MessageLength       equ 13
     Message:    db "Hello LOader!"      ;13字节，不够用空格补齐，序号0
