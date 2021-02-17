@@ -120,7 +120,7 @@ wSector         dw  0       ;要读取的扇区号
 
 ;=======================================================================
 ;-----------------------------------------------------------------------
-    LoaderFileName db "LODAER  BIN", 0   ;LOADER.BIN之文件名
+    LoaderFileName db "LOADER  BIN", 0   ;LOADER.BIN之文件名
 ;要显示字符串
 ;简化代码，每个字符串长度均为 MessageLength
     MessageLength       equ 10
