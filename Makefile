@@ -46,7 +46,7 @@ all: $(Typedef)
 
 # 生成系统镜像文件
 image: $(os) $(Typedef)
-	dd if=$(tb)/boot.bin if=$(os) bs=512 count=1 conv=notrunc
+	dd if=$(tb)/boot.bin of=$(os) bs=512 count=1 conv=notrunc
 	sudo mount -o loop $(os) $(ImgMountPoint)
 	sudo cp -fv $(tb)/loader.bin $(ImgMountPoint)
 	sudo umount $(ImgMountPoint)

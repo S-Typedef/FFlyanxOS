@@ -27,6 +27,7 @@ LOADER_OFFSET   equ 0x100
 LABEL_START:
         mov ax,cs
         mov ds,ax
+        mov	es, ax
         mov ss,ax
         mov sp,BaseOfStack
 
@@ -104,11 +105,6 @@ NO_FILE:
     ;死循环
     jmp $
 FILENAME_FOUND:
-    push es
-    mov dh,1
-    call DispStr        ;"Loading..."
-    pop es
-
     ;准备参数读书文件数据扇区
     mov ax,RootDirSectors   ;ax=根目录占用空间
     and di,0xfff0
@@ -151,7 +147,7 @@ LOADING_FILE:
     jmp LOADING_FILE
 
 FILE_LOADED:
-    mov dh,3
+    mov dh,1
         call DispStr                ;"Loaded ^-^"
     ;死循环
     jmp LOADER_SEG:LOADER_OFFSET    ;跳转到Loader程序，引导程序使命结束
@@ -172,9 +168,8 @@ LoaderFileName db "LOADER  BIN", 0   ;LOADER.BIN之文件名
 ;简化代码，每个字符串长度均为 MessageLength
 MessageLength       equ 10
 BootMessage:    db "Booting..."      ;12字节，不够用空格补齐，序号0
-                db "Loading..."
-                db "NO LOADER!"
                 db "Loaded ^-^"
+                db "NO LOADER!"
 ;=======================================================================
 ;-----------------------------------------------------------------------
 ;函数名：DispStr
