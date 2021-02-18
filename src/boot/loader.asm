@@ -45,7 +45,6 @@ MemChkFail:
     mov dh,1
     call DispStr            ;检查失败打印"Mem Chk Fail!"
 
-
     ;死循环
     jmp $
 MemChkFinish:
@@ -53,7 +52,6 @@ MemChkFinish:
     xor ah, ah          ; xor:异或，ah = 0
     xor dl, dl          ; dl = 0
     int 0x13
-
 
     ;在软盘A中寻找文件
     mov word [wSector],SectorNoOfRootDirectory      ;读取软盘的根目录区号
@@ -127,7 +125,7 @@ FILENAME_FOUND:
     mov bx,KERNEL_OFFSET
     mov ax,cx               ;ax = 文件数据的第一个扇区
 LOADING_FILE:
-    ;每读取一个数据扇区，就在"Loading..."后挨着打印一个点，形成动画
+    ;每读取一个数据扇区，就在"Loading..."后挨着打印一个'*'，形成动画
     ;0x10中断，0xe功能：在光标后打印一个字符
     push ax
     push bx
@@ -156,7 +154,6 @@ LOADING_FILE:
 FILE_LOADED:
     mov dh,3
     call DispStr                ;加载成功
-
     ;死循环
     jmp $
 

@@ -147,9 +147,8 @@ LOADING_FILE:
     jmp LOADING_FILE
 
 FILE_LOADED:
-    mov dh,1
-    call DispStr                ;"Loaded ^-^"
-
+    mov dh, 1
+    call DispStr                    ; 打印"Loaded ^-^"
     jmp LOADER_SEG:LOADER_OFFSET    ;跳转到Loader程序，引导程序使命结束
 
 
@@ -166,7 +165,7 @@ isOdd               db      0               ;FAT条目是否奇数
 LoaderFileName  db "LOADER  BIN", 0   ;LOADER.BIN之文件名
 ;要显示字符串
 ;简化代码，每个字符串长度均为 MessageLength
-MessageLength       equ 10
+MessageLength   equ 10
 BootMessage:    db "Booting..."      ;12字节，不够用空格补齐，序号0
                 db "Loaded ^-^"
                 db "NO LOADER!"
