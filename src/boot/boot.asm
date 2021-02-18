@@ -2,7 +2,7 @@
 ;====================================================================================
 ;%define   _BOOT_DEBUG_     ;做 BOOT Sector 时一定将此行注释掉！此行打开后用 nasm Boot.asm -o Boot.com 做成一个.COM文件易于调试
 %ifdef _BOOT_DEBUG_
-    org 0x100               ; 调试状态，做成.COM文件，可调试
+    org 0100h               ; 调试状态，做成.COM文件，可调试
 %else
     org 7c00h             ; Boot状态，Bios将把 Boot Sector 加载到0:7c00处执行
 %endif
@@ -25,30 +25,30 @@ LOADER_OFFSET   equ 0x100
     %include "fat12hdr.inc"
 ;======================================================================================
 LABEL_START:
-        mov ax,cs
-        mov ds,ax
-        mov	es, ax
-        mov ss,ax
-        mov sp,BaseOfStack
+    mov ax,cs
+    mov ds,ax
+    mov	es,ax
+    mov ss,ax
+    mov sp,BaseOfStack
 
-        ;清屏，清理BIOS输出
-        mov ax,0x0600   ;AH=6,AL=0h
-        mov bx,0x0700   ;黑底白字(BL=07H)
-        mov cx,0        ;左上角:(0,0)
-        mov dx,0x0184f  ;右下角:(88,50)
-        int 0x10
+    ;清屏，清理BIOS输出
+    mov ax,0x0600   ;AH=6,AL=0h
+    mov bx,0x0700   ;黑底白字(BL=07H)
+    mov cx,0        ;左上角:(0,0)
+    mov dx,0x0184f  ;右下角:(88,50)
+    int 0x10
 
-        ;显示字符串 "Booting......"
-        mov dh,0        ;"Booting......"
-        call DispStr     ;显示字符串
+    ;显示字符串 "Booting......"
+    mov dh,0        ;"Booting......"
+    call DispStr     ;显示字符串
 
-        ;操作软盘前，将软驱复位
-        xor ah,ah       ;ah置0,速度优于 mov
-        xor dl,dl
-        int 0x13
+    ;操作软盘前，将软驱复位
+    xor ah,ah       ;ah置0,速度优于 mov
+    xor dl,dl
+    int 0x13
 
-        ;在软盘A中寻找文件
-        mov word [wSector],SectorNoOfRootDirectory      ;读取软盘的根目录区号
+    ;在软盘A中寻找文件
+    mov word [wSector],SectorNoOfRootDirectory      ;读取软盘的根目录区号
 SEARC_FILE_IN_ROOT_DIR_BEGIN:
     cmp word [wRootDirSizeLoop],0
     jz  NO_FILE                     ;读完整个根目录都没找到，没有文件
@@ -109,7 +109,7 @@ FILENAME_FOUND:
     mov ax,RootDirSectors   ;ax=根目录占用空间
     and di,0xfff0
     add di,0x1a             ;FAT目录项0x1a处是文件数据所在的第一个簇号
-    mov cx,[es:di]          ;cx=文件数据所在的第一个簇号
+    mov cx, word [es:di]          ;cx=文件数据所在的第一个簇号
     push cx
     ;通过簇号计算真正扇区号
     add cx,ax
@@ -124,8 +124,8 @@ LOADING_FILE:
     push ax
     push bx
     mov ah,0xe
-    mov al,'*'
-    mov bl,0x7
+    mov al,'.'
+    mov bl,0xf
     int 0x10
     pop bx
     pop ax
@@ -148,8 +148,8 @@ LOADING_FILE:
 
 FILE_LOADED:
     mov dh,1
-        call DispStr                ;"Loaded ^-^"
-    ;死循环
+    call DispStr                ;"Loaded ^-^"
+
     jmp LOADER_SEG:LOADER_OFFSET    ;跳转到Loader程序，引导程序使命结束
 
 
@@ -163,7 +163,7 @@ isOdd               db      0               ;FAT条目是否奇数
 
 ;=======================================================================
 ;-----------------------------------------------------------------------
-LoaderFileName db "LOADER  BIN", 0   ;LOADER.BIN之文件名
+LoaderFileName  db "LOADER  BIN", 0   ;LOADER.BIN之文件名
 ;要显示字符串
 ;简化代码，每个字符串长度均为 MessageLength
 MessageLength       equ 10
