@@ -123,7 +123,7 @@ NEXT_SECTOR_IN_ROOT_DIR:
     add word [wSector],1    ;准备开始读下一个扇区
     jmp SEARC_FILE_IN_ROOT_DIR_BEGIN
 NO_FILE:
-    mov dh,2
+    mov dh,4
     call DispStr        ;"NO KERNEL"
     ;死循环
     jmp $
@@ -138,7 +138,7 @@ FILENAME_FOUND:
     cmp eax,KERNEL_HAVE_SPACE
     ja KERNEL_FILE_TOO_LARGE
     pop eax
-    jmp FILE_START_LAOD
+    jmp FILE_START_LOAD
 KERNEL_FILE_TOO_LARGE:
     mov dh,3
     call DispStr
@@ -392,6 +392,12 @@ PM_32_START:            ; 跳转到这里，说明已经进入32位保护模式
 
     ; 死循环
     jmp $
+;============================================================================
+;   32位数据段
+;----------------------------------------------------------------------------
+[section .data32]
+align 32
+DATA32:
 ;=======================================================================
 ;   16位实模式下的数据地址符号
 ;-----------------------------------------------------------------------
