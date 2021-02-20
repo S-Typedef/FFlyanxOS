@@ -13,7 +13,7 @@ romimage:file=/usr/share/bochs/BIOS-bochs-latest
 vgaromimage:file=/usr/share/bochs/VGABIOS-lgpl-latest
 
 # select your boot started floppy disk（软盘）
-floppya:1_44=typedef.img,status=inserted
+floppya:1_44=Flyanx.img,status=inserted
 
 # 硬盘-现在的flyanx需要一个硬盘
 # ata0: enabled=1, ioaddr1=0x1f0, ioaddr2=0x3f0, irq=14
