@@ -55,7 +55,6 @@ _start:     ; 内核程序入口
     lgdt [gdt_ptr]          ; 使用新的GDT
     lidt [idt_ptr]          ; 加载idt指针，在cstart函数中已经将idt_ptr指向新的中断表了
 
-    sti
 
     ; 一个跳转指令，让以上设置及时生效
     jmp SELECTOR_KERNEL_CS:csinit
