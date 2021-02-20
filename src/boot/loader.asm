@@ -58,9 +58,9 @@ MemChkLoop:
     ;未拿到最后一个
     jmp MemChkLoop
 MemChkFail:
-    mov dword [_ddMCRCount],0     ;检查失败，ARDS数量设置为0
+    mov dword [_ddMCRCount],0       ;检查失败，ARDS数量设置为0
     mov dh,2
-    call DispStr            ;检查失败打印"Mem Chk Fail!"
+    call DispStr                    ;检查失败打印"Mem Chk Fail!"
 
     ;死循环
     jmp $
