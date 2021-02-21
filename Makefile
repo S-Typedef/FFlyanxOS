@@ -57,7 +57,7 @@ CC              = gcc
 LD              = ld
 ASMFlagsOfBoot  = -I src/boot/include/
 ASMFlagsOfKernel= -f elf -I $(sk)/
-CFlags          = -m32 -c -I$i -fno-builtin -Wall
+CFlags          = -m32 -c -I$i -fno-builtin -Wall -fno-stack-protector
 LDFlags         = -m elf_i386 -Ttext $(ENTRY_POINT) -Map kernel.map	-s
 DASMFlags       = -D
 #============================================================================
