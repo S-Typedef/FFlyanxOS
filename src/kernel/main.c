@@ -5,16 +5,20 @@
  * QQ-Group:909830414
  * gitee: https://gitee.com/flyanh/
  *
- * 该文件包含flyanx的主程序。
+ *  该文件包含包含了内核的入口以及一个内核慌乱宕机(panic)函数
  *
  * 该文件的入口点是：
- *  - flyanx_main:      flyanx的主程序
+ *  - flyanx_main:      flyanx的主程序入口
  */
 
 #include "kernel.h"
 #include "assert.h"
 INIT_ASSERT             // 使用断言之前需要先初始化
 
+/*=========================================================================*
+ *				flyanx_main				   *
+ *			    内核主函数
+ *=========================================================================*/
 void flyanx_main(void){
 
     low_print("#{flyanx_main}-->Hello OS!!!\n");
@@ -24,15 +28,15 @@ void flyanx_main(void){
 //    int b = 5 / a;
 
     /* 测试断言 */
-    assert(1 == 3);
+//    assert(1 == 7);
 
     /* 比较测试 */
 //    compare(1, >, 3);
 
     /* 测试内核打印函数 */
-    k_printf("#{flyanx_main}-->test msg%d %x\n", 7, 0x328);
+    printf("#{flyanx_main}-->test msg%d %x\n", 7, 0x328);
 
-    while (1){}
+    while (TRUE){}
 }
 
 /*=========================================================================*
