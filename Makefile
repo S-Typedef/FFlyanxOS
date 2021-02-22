@@ -58,8 +58,8 @@ CC              = gcc
 LD              = ld
 ASMFlagsOfBoot  = -I src/boot/include/
 ASMFlagsOfKernel= -f elf -I $(sk)/
-CFlags          = -m32 -c -I$i -fno-builtin -Wall -fno-stack-protector
-LDFlags         = -m elf_i386 -Ttext $(ENTRY_POINT) -Map kernel.map	-s
+CFlags          = -c -I$i -fno-builtin -Wall
+LDFlags         = -Ttext $(ENTRY_POINT) -Map kernel.map
 DASMFlags       = -D
 #============================================================================
 #   目标程序以及编译的中间文件
@@ -97,7 +97,7 @@ all: $(FlyanxBoot) $(FlyanxKernel)
 # 生成系统镜像文件
 image: $(FD) $(FlyanxBoot)
 	dd if=$(tb)/boot.bin of=$(FD) bs=512 count=1 conv=notrunc
-	sudo mount -o loop $(FD) $(ImgMountPoint)
+	sudo mount -t msdos -o loop $(FD) $(ImgMountPoint)
 	sudo cp -fv $(tb)/loader.bin $(ImgMountPoint)
 	sudo cp -fv $(FlyanxKernel) $(ImgMountPoint)
 	sudo umount $(ImgMountPoint)
