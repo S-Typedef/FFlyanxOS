@@ -1,4 +1,4 @@
-/* Copyright (C) 2007 Free Software Foundation, Inc. 
+/* Copyright (C) 2007 Free Software Foundation, Inc.
  * See the copyright notice in the file /usr/LICENSE.
  * Created by flyan on 2020/3/16.
  * QQ: 1341662010
@@ -52,10 +52,10 @@ PRIVATE int clock_handler(int irq) {
     return ENABLE;
 }
 
-/*===========================================================================*
+/*==========================================================================*
  *				clock_init				     *
  *				时钟初始化
- *===========================================================================*/
+ *==========================================================================*/
 PRIVATE void clock_init(void) {
     /* 设置 8253定时器芯片 的模式和计数器Counter 0以产生每秒 100 次的
      * 时钟滴答中断，即每 10ms 产生一次中断。
